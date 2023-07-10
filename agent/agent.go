@@ -3,7 +3,6 @@ package agent
 import (
 	"fmt"
 
-	"go.etcd.io/etcd/api/v3/v3rpc/rpctypes"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
@@ -54,12 +53,12 @@ func EndpointStatus(gcfg GlobalConfig, ep string) (*clientv3.StatusResponse, err
 	return c.Status(ctx, ep)
 }
 
-func Read(gcfg GlobalConfig, ep string, options ...clientv3.OpOption) error {
+func Read(gcfg GlobalConfig, eps []string, key string, options ...clientv3.OpOption) (*clientv3.GetResponse, error) {
 	cfgSpec := clientConfigWithoutEndpoints(gcfg)
-	cfgSpec.Endpoints = []string{ep}
+	cfgSpec.Endpoints = eps
 	c, err := createClient(cfgSpec)
 	if err != nil {
-		return fmt.Errorf("failed to createClient: %w", err)
+		return nil, fmt.Errorf("failed to createClient: %w", err)
 	}
 
 	ctx, cancel := commandCtx(gcfg.CommandTimeout)
@@ -68,9 +67,5 @@ func Read(gcfg GlobalConfig, ep string, options ...clientv3.OpOption) error {
 		cancel()
 	}()
 
-	_, err = c.Get(ctx, "health", options...)
-	if err == nil || err == rpctypes.ErrPermissionDenied {
-		return nil
-	}
-	return err
+	return c.Get(ctx, key, options...)
 }

@@ -1,6 +1,7 @@
 package read
 
 import (
+	"go.etcd.io/etcd/api/v3/v3rpc/rpctypes"
 	"log"
 	"time"
 
@@ -73,7 +74,7 @@ func (ck *readChecker) Diagnose() (result any) {
 			chkResult.ReadResponses[i].Endpoint = ep
 
 			startTs := time.Now()
-			if err = agent.Read(ck.GlobalConfig, ep, clientv3.WithSerializable()); err != nil {
+			if _, err := agent.Read(ck.GlobalConfig, []string{ep}, "health", clientv3.WithSerializable()); err != nil && err != rpctypes.ErrPermissionDenied {
 				chkResult.ReadResponses[i].Error = err.Error()
 				shouldRetry = true
 			}
