@@ -1,10 +1,10 @@
 package read
 
 import (
-	"go.etcd.io/etcd/api/v3/v3rpc/rpctypes"
 	"log"
 	"time"
 
+	"go.etcd.io/etcd/api/v3/v3rpc/rpctypes"
 	clientv3 "go.etcd.io/etcd/client/v3"
 
 	"github.com/ahrtr/etcd-diagnosis/agent"
