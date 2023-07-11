@@ -1,7 +1,12 @@
 package agent
 
 import (
+	"crypto/tls"
 	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"strings"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
@@ -68,4 +73,41 @@ func Read(gcfg GlobalConfig, eps []string, key string, options ...clientv3.OpOpt
 	}()
 
 	return c.Get(ctx, key, options...)
+}
+
+func Metrics(gcfg GlobalConfig, ep string) ([]string, error) {
+	if !strings.HasPrefix(ep, "http://") && !strings.HasPrefix(ep, "https://") {
+		ep = "http://" + ep
+	}
+	urlPath, err := url.JoinPath(ep, "metrics")
+	if err != nil {
+		return nil, fmt.Errorf("failed to join metrics url path: %w", err)
+	}
+
+	client := &http.Client{}
+	if strings.HasPrefix(urlPath, "https://") {
+		cert, err := tls.LoadX509KeyPair(gcfg.CertFile, gcfg.KeyFile)
+		if err != nil {
+			return nil, fmt.Errorf("failed to load certificate: %w", err)
+		}
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{
+				Certificates:       []tls.Certificate{cert},
+				InsecureSkipVerify: gcfg.InsecureSkipVerify,
+			},
+		}
+		client.Transport = tr
+	}
+	resp, err := client.Get(urlPath)
+	if err != nil {
+		return nil, fmt.Errorf("http get failed: %w", err)
+	}
+	defer resp.Body.Close()
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read metrics response: %w", err)
+	}
+
+	return strings.Split(string(data), "\n"), nil
 }

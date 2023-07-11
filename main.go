@@ -14,6 +14,7 @@ import (
 	"github.com/ahrtr/etcd-diagnosis/engine/intf"
 	"github.com/ahrtr/etcd-diagnosis/plugins/epstatus"
 	"github.com/ahrtr/etcd-diagnosis/plugins/membership"
+	"github.com/ahrtr/etcd-diagnosis/plugins/metrics"
 	"github.com/ahrtr/etcd-diagnosis/plugins/read"
 )
 
@@ -87,6 +88,7 @@ func diagnosisCommandFunc(cmd *cobra.Command, args []string) {
 		membership.NewPlugin(globalCfg),
 		epstatus.NewPlugin(globalCfg),
 		read.NewPlugin(globalCfg),
+		metrics.NewPlugin(globalCfg),
 	}
 
 	engine.Diagnose(globalCfg, plugins)
