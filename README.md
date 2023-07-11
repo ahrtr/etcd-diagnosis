@@ -1,7 +1,7 @@
 # etcd-diagnosis
 
 ## Overview
-etcd-diagnosis is an one-stop etcd diagnosis tool. It diagnoses running etcd clusters and generates reports with
+etcd-diagnosis is an one-stop etcd diagnosis tool. It diagnoses running etcd clusters and generates a report with
 just one command. It reuses most of the `etcdctl` global flags, so users follow the same experience as `etcdctl`
 to use `etcd-diagnosis`. See the complete flags below,
 
@@ -60,6 +60,7 @@ interface. Currently, there are 4 plugins, see table below,
 | epStatusChecker   | It checks each endpoint's status, and verify whether their status is consistent                      |
 | readCheck         | It checks each endpoint can serve serialiable read requests and the duration to serve a read request |
 | metricsChecker    | It collects some prometheus metrics from each endpoint                                               |
+| any else?         | You are welcome to contribute new plugins!                                                           |
 
 ## Contributing
 Any contribution (e.g. new plugins) is welcome!
