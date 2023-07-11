@@ -36,7 +36,8 @@ Flags:
 
 ## Examples
 It's pretty simple & straightforward. See the example below, it automatically diagnoses all the endpoints specified by
-flag `--endpoints` and output the diagnosis result to both standard output and the file "etcd_diagnosis_report.json" 
+flag `--endpoints` and output the diagnosis result to both standard output and the file "etcd_diagnosis_report.json"
+(see [example report](https://github.com/ahrtr/etcd-diagnosis/blob/main/examples/etcd_diagnosis_report.json))
 under the current directory.
 
 ```
