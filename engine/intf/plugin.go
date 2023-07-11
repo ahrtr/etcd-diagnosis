@@ -5,7 +5,7 @@ type Plugin interface {
 	Name() string
 	// Diagnose performs diagnosis and returns the result. If it fails
 	// to do the diagnosis for any reason, it gets the detailed reason
-	//included in the diagnosis result.
+	// included in the diagnosis result.
 	Diagnose() any
 }
 

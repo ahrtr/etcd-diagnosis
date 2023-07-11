@@ -25,7 +25,7 @@ var (
 func newDiagnosisCommand() *cobra.Command {
 	diagnosisCmd := &cobra.Command{
 		Use:   "etcd-diagnosis",
-		Short: "A simple command line tool for etcd defragmentation",
+		Short: "An one-stop etcd diagnosis tool",
 		Run:   diagnosisCommandFunc,
 	}
 
