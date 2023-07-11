@@ -2,3 +2,5 @@
 .DS_Store
 etcd-diagnosis
 /etcd_diagnosis_report.json
+/bin
+/release
