@@ -1,9 +1,9 @@
 # etcd-diagnosis
 
 ## Overview
-etcd-diagnosis is an one-stop etcd diagnosis tool. It diagnoses running etcd clusters and generates a report with
-just one command. It reuses most of the `etcdctl` global flags, so users follow the same experience as `etcdctl`
-to use `etcd-diagnosis`. See the complete flags below,
+etcd-diagnosis is a comprehensive tool for etcd diagnosis. It diagnoses running etcd clusters and generates a
+report with just one command. It reuses most of the `etcdctl` global flags, so users follow the same experience
+as `etcdctl` to use `etcd-diagnosis`. See the complete flags below,
 
 ```
 $ ./bin/etcd-diagnosis -h
