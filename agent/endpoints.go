@@ -52,11 +52,11 @@ func endpointsFromCmd(gcfg GlobalConfig) ([]string, error) {
 }
 
 func endpointsFromDNSDiscovery(gcfg GlobalConfig) ([]string, error) {
-	if gcfg.DnsDomain == "" {
+	if gcfg.DNSDomain == "" {
 		return nil, nil
 	}
 
-	srvs, err := srv.GetClient("etcd-client", gcfg.DnsDomain, gcfg.DnsService)
+	srvs, err := srv.GetClient("etcd-client", gcfg.DNSDomain, gcfg.DNSService)
 	if err != nil {
 		return nil, err
 	}

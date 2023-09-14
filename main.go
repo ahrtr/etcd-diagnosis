@@ -47,8 +47,8 @@ func newDiagnosisCommand() *cobra.Command {
 	diagnosisCmd.Flags().StringVar(&globalCfg.Username, "user", "", "username[:password] for authentication (prompt if password is not supplied)")
 	diagnosisCmd.Flags().StringVar(&globalCfg.Password, "password", "", "password for authentication (if this option is used, --user option shouldn't include password)")
 
-	diagnosisCmd.Flags().StringVarP(&globalCfg.DnsDomain, "discovery-srv", "d", "", "domain name to query for SRV records describing cluster endpoints")
-	diagnosisCmd.Flags().StringVarP(&globalCfg.DnsService, "discovery-srv-name", "", "", "service name to query when using DNS discovery")
+	diagnosisCmd.Flags().StringVarP(&globalCfg.DNSDomain, "discovery-srv", "d", "", "domain name to query for SRV records describing cluster endpoints")
+	diagnosisCmd.Flags().StringVarP(&globalCfg.DNSService, "discovery-srv-name", "", "", "service name to query when using DNS discovery")
 	diagnosisCmd.Flags().BoolVar(&globalCfg.InsecureDiscovery, "insecure-discovery", true, "accept insecure SRV records describing cluster endpoints")
 
 	diagnosisCmd.Flags().IntVar(&globalCfg.DbQuotaBytes, "etcd-storage-quota-bytes", 2*1024*1024*1024, "etcd storage quota in bytes (the value passed to etcd instance by flag --quota-backend-bytes)")
@@ -62,10 +62,8 @@ func main() {
 	if err := diagnosisCmd.Execute(); err != nil {
 		if diagnosisCmd.SilenceErrors {
 			fmt.Fprintln(os.Stderr, "Error:", err)
-			os.Exit(1)
-		} else {
-			os.Exit(1)
 		}
+		os.Exit(1)
 	}
 }
 
@@ -79,7 +77,7 @@ func printVersion(printVersion bool) {
 	}
 }
 
-func diagnosisCommandFunc(cmd *cobra.Command, args []string) {
+func diagnosisCommandFunc(_ *cobra.Command, _ []string) {
 	printVersion(globalCfg.PrintVersion)
 
 	log.Println("etcd diagnosis starting...")

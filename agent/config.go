@@ -24,8 +24,8 @@ type GlobalConfig struct {
 	KeyFile  string `json:"key-file,omitempty"`
 	CaFile   string `json:"ca-file,omitempty"`
 
-	DnsDomain  string `json:"dns-domain,omitempty"`
-	DnsService string `json:"dns-service,omitempty"`
+	DNSDomain  string `json:"dns-domain,omitempty"`
+	DNSService string `json:"dns-service,omitempty"`
 
 	Username string `json:"username,omitempty"`
 	Password string `json:"password,omitempty"`
@@ -53,7 +53,7 @@ func secureConfig(gcfg GlobalConfig) *clientv3.SecureConfig {
 		Cert:       gcfg.CertFile,
 		Key:        gcfg.KeyFile,
 		Cacert:     gcfg.CaFile,
-		ServerName: gcfg.DnsDomain,
+		ServerName: gcfg.DNSDomain,
 
 		InsecureTransport:  gcfg.Insecure,
 		InsecureSkipVerify: gcfg.InsecureSkipVerify,
