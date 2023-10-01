@@ -2,10 +2,12 @@ package agent
 
 import (
 	"crypto/tls"
+	"crypto/x509"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
@@ -86,13 +88,22 @@ func Metrics(gcfg GlobalConfig, ep string) ([]string, error) {
 
 	client := &http.Client{}
 	if strings.HasPrefix(urlPath, "https://") {
+		// load client certificate
 		cert, err := tls.LoadX509KeyPair(gcfg.CertFile, gcfg.KeyFile)
 		if err != nil {
 			return nil, fmt.Errorf("failed to load certificate: %w", err)
 		}
+		// load CA
+		caCert, err := os.ReadFile(gcfg.CaFile)
+		if err != nil {
+			return nil, fmt.Errorf("failed to load CA: %w", err)
+		}
+		caCertPool := x509.NewCertPool()
+		caCertPool.AppendCertsFromPEM(caCert)
 		tr := &http.Transport{
 			TLSClientConfig: &tls.Config{
 				Certificates:       []tls.Certificate{cert},
+				RootCAs:            caCertPool,
 				InsecureSkipVerify: gcfg.InsecureSkipVerify,
 			},
 		}
