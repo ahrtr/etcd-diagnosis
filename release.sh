@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Release process
+#   1. Update the version in https://github.com/ahrtr/etcd-diagnosis/blob/main/version.go#L4;
+#   2. Create a tag, e.g. `git tag --local-user "60D4FE77E5E4F23F" --sign "v0.2.0" --message "v0.2.0"`;
+#   3. Execute release script, e.g. `./release.sh v0.2.0`;
+#   4. Draft a new github release.
+
 set -euo pipefail
 
 VER=${1:-}
