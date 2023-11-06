@@ -3,7 +3,7 @@ module github.com/ahrtr/etcd-diagnosis
 go 1.21
 
 require (
-	github.com/spf13/cobra v1.7.0
+	github.com/spf13/cobra v1.8.0
 	go.etcd.io/etcd/api/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
 	go.etcd.io/etcd/client/pkg/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
 	go.etcd.io/etcd/client/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
