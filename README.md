@@ -52,15 +52,16 @@ $ ./etcd-diagnosis --endpoints=http://10.0.1.10:2379,http://10.0.1.11:2379,http:
 ## Design
 It's simple: one generic diagnosis engine + extensible plugins. Each plugin performs a diagnosis, and implements the
 [Plugin](https://github.com/ahrtr/etcd-diagnosis/blob/67a33648b652430735af7b4b79037dc59171400c/engine/intf/plugin.go#L3)
-interface. Currently, there are 4 plugins, see table below,
+interface. Currently, there are 5 plugins, see table below,
 
-| Name              | Description                                                                                          |
-|-------------------|------------------------------------------------------------------------------------------------------|
-| membershipChecker | It checks whethere each endpoint has the same member list                                            |
-| epStatusChecker   | It checks each endpoint's status, and verify whether their status is consistent                      |
-| readCheck         | It checks each endpoint can serve serialiable read requests and the duration to serve a read request |
-| metricsChecker    | It collects some prometheus metrics from each endpoint                                               |
-| any else?         | You are welcome to contribute new plugins!                                                           |
+| Name                    | Description                                                                                           |
+|-------------------------|-------------------------------------------------------------------------------------------------------|
+| membershipChecker       | It checks whethere each endpoint has the same member list                                             |
+| epStatusChecker         | It checks each endpoint's status, and verify whether their status is consistent                       |
+| serializableReadChecker | It checks each endpoint can serve serialiable read requests and the duration to serve a read request  |
+| linearizableReadChecker | It checks each endpoint can serve linearizable read requests and the duration to serve a read request |
+| metricsChecker          | It collects some prometheus metrics from each endpoint                                                |
+| any else?               | You are welcome to contribute new plugins!                                                            |
 
 ## Contributing
 Any contribution (e.g. new plugins) is welcome!

@@ -14,6 +14,7 @@ import (
 
 type readChecker struct {
 	common.Checker
+	linearizable bool
 }
 
 type readResponse struct {
@@ -27,17 +28,25 @@ type checkResult struct {
 	ReadResponses []readResponse `json:"readResponses,omitempty"`
 }
 
-func NewPlugin(gcfg agent.GlobalConfig) intf.Plugin {
+func NewPlugin(gcfg agent.GlobalConfig, linearizable bool) intf.Plugin {
 	return &readChecker{
 		Checker: common.Checker{
 			GlobalConfig: gcfg,
-			Name:         "readChecker",
+			Name:         generateName(linearizable),
 		},
+		linearizable: linearizable,
 	}
 }
 
 func (ck *readChecker) Name() string {
 	return ck.Checker.Name
+}
+
+func generateName(linearizable bool) string {
+	if linearizable {
+		return "linearizableReadChecker"
+	}
+	return "serializableReadChecker"
 }
 
 func (ck *readChecker) Diagnose() (result any) {
@@ -74,7 +83,13 @@ func (ck *readChecker) Diagnose() (result any) {
 			chkResult.ReadResponses[i].Endpoint = ep
 
 			startTs := time.Now()
-			if _, err := agent.Read(ck.GlobalConfig, []string{ep}, "health", clientv3.WithSerializable()); err != nil && err != rpctypes.ErrPermissionDenied {
+			var err error
+			if ck.linearizable {
+				_, err = agent.Read(ck.GlobalConfig, []string{ep}, "health")
+			} else {
+				_, err = agent.Read(ck.GlobalConfig, []string{ep}, "health", clientv3.WithSerializable())
+			}
+			if err != nil && err != rpctypes.ErrPermissionDenied {
 				chkResult.ReadResponses[i].Error = err.Error()
 				shouldRetry = true
 			}
