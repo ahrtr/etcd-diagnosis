@@ -85,7 +85,8 @@ func diagnosisCommandFunc(_ *cobra.Command, _ []string) {
 	plugins := []intf.Plugin{
 		membership.NewPlugin(globalCfg),
 		epstatus.NewPlugin(globalCfg),
-		read.NewPlugin(globalCfg),
+		read.NewPlugin(globalCfg, false),
+		read.NewPlugin(globalCfg, true),
 		metrics.NewPlugin(globalCfg),
 	}
 
