@@ -30,9 +30,16 @@ fmt:
 	@echo "Verifying goimports"
 	@!(go run golang.org/x/tools/cmd/goimports@latest -l -d ${GOFILES} | grep '[a-z]')
 
+GOLANGCI_LINT_VERSION = $(shell go list -m -f {{.Version}} github.com/golangci/golangci-lint)
+.PHONY: install-golangci-lint
+install-golangci-lint:
+ifeq (, $(shell which golangci-lint))
+	$(shell curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /tmp $(GOLANGCI_LINT_VERSION))
+endif
+
 .PHONY: lint
-lint:
-	golangci-lint run ./...
+lint: install-golangci-lint
+	/tmp/golangci-lint run ./...
 
 .PHONY: test
 test:
