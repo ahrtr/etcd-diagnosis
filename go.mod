@@ -1,13 +1,13 @@
 module github.com/ahrtr/etcd-diagnosis
 
 go 1.22
-toolchain go1.22.5
+toolchain go1.23.6
 
 require (
 	github.com/golangci/golangci-lint v1.63.4
 	github.com/spf13/cobra v1.9.1
 	go.etcd.io/etcd/api/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
-	go.etcd.io/etcd/client/pkg/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
+	go.etcd.io/etcd/client/pkg/v3 v3.6.0-rc.0
 	go.etcd.io/etcd/client/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
 	go.uber.org/zap v1.27.0
 )
@@ -192,7 +192,7 @@ require (
 	golang.org/x/mod v0.22.0 // indirect
 	golang.org/x/net v0.32.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/tools v0.28.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240725223205-93522f1f2a9f // indirect
