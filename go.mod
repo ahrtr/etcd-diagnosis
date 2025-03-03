@@ -6,7 +6,7 @@ toolchain go1.23.6
 require (
 	github.com/golangci/golangci-lint v1.64.6
 	github.com/spf13/cobra v1.9.1
-	go.etcd.io/etcd/api/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
+	go.etcd.io/etcd/api/v3 v3.6.0-rc.1
 	go.etcd.io/etcd/client/pkg/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
 	go.etcd.io/etcd/client/v3 v3.6.0-alpha.0.0.20230704130851-ac58abcf7ebb
 	go.uber.org/zap v1.27.0
@@ -87,7 +87,7 @@ require (
 	github.com/gostaticanalysis/comment v1.5.0 // indirect
 	github.com/gostaticanalysis/forcetypeassert v0.2.0 // indirect
 	github.com/gostaticanalysis/nilerr v0.1.1 // indirect
-	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.0 // indirect
 	github.com/hashicorp/go-immutable-radix/v2 v2.1.0 // indirect
 	github.com/hashicorp/go-version v1.7.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
@@ -192,7 +192,7 @@ require (
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	golang.org/x/tools v0.30.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20241209162323-e6fa225c2576 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20250115164207-1a7da9e5054f // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250127172529-29210b9bc287 // indirect
 	google.golang.org/grpc v1.70.0 // indirect
 	google.golang.org/protobuf v1.36.4 // indirect
