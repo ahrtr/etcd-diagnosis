@@ -1,6 +1,7 @@
 module github.com/ahrtr/etcd-diagnosis
 
-go 1.22
+go 1.23.0
+
 toolchain go1.23.6
 
 require (
