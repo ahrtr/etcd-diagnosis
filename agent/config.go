@@ -33,6 +33,9 @@ type GlobalConfig struct {
 	DbQuotaBytes int `json:"db-quota-bytes,omitempty"`
 
 	PrintVersion bool `json:"print-version,omitempty"`
+
+	Offline bool   `json:"offline,omitempty"`
+	DataDir string `json:"data-dir,omitempty"`
 }
 
 func clientConfigWithoutEndpoints(gcfg GlobalConfig) *clientv3.ConfigSpec {

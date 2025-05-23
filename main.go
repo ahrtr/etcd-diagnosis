@@ -12,6 +12,7 @@ import (
 	"github.com/ahrtr/etcd-diagnosis/agent"
 	"github.com/ahrtr/etcd-diagnosis/engine"
 	"github.com/ahrtr/etcd-diagnosis/engine/intf"
+	"github.com/ahrtr/etcd-diagnosis/offline"
 	"github.com/ahrtr/etcd-diagnosis/plugins/epstatus"
 	"github.com/ahrtr/etcd-diagnosis/plugins/membership"
 	"github.com/ahrtr/etcd-diagnosis/plugins/metrics"
@@ -54,6 +55,10 @@ func newDiagnosisCommand() *cobra.Command {
 	diagnosisCmd.Flags().IntVar(&globalCfg.DbQuotaBytes, "etcd-storage-quota-bytes", 2*1024*1024*1024, "etcd storage quota in bytes (the value passed to etcd instance by flag --quota-backend-bytes)")
 
 	diagnosisCmd.Flags().BoolVar(&globalCfg.PrintVersion, "version", false, "print the version and exit")
+
+	diagnosisCmd.Flags().BoolVar(&globalCfg.Offline, "offline", false, "offline analysis")
+	diagnosisCmd.Flags().StringVar(&globalCfg.DataDir, "data-dir", "", "path to data directory")
+
 	return diagnosisCmd
 }
 
@@ -80,6 +85,17 @@ func printVersion(printVersion bool) {
 func diagnosisCommandFunc(_ *cobra.Command, _ []string) {
 	printVersion(globalCfg.PrintVersion)
 
+	if globalCfg.Offline {
+		offline.AnalyzeOffline(globalCfg.DataDir)
+		return
+	}
+
+	onlineAnalysis()
+
+	log.Println("etcd diagnosis done!")
+}
+
+func onlineAnalysis() {
 	log.Println("etcd diagnosis starting...")
 
 	plugins := []intf.Plugin{
@@ -91,6 +107,4 @@ func diagnosisCommandFunc(_ *cobra.Command, _ []string) {
 	}
 
 	engine.Diagnose(globalCfg, plugins)
-
-	log.Println("etcd diagnosis done!")
 }
