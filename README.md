@@ -59,6 +59,8 @@ The following example performs offline analysis of etcd data located at ~/tmp/et
 Each line of the output shows a key and its corresponding revision count in the format:
 `key: revision_count`.
 
+The output is sorted in descending order by revision count.
+
 ```
 $ ./etcd-diagnosis --offline --data-dir ~/tmp/etcd/data/
 2025/05/23 16:58:37 etcd diagnosis performs offline analysis...
