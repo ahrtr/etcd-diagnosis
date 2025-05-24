@@ -57,7 +57,7 @@ $ ./etcd-diagnosis --endpoints=http://10.0.1.10:2379,http://10.0.1.11:2379,http:
 
 The following example performs offline analysis of etcd data located at ~/tmp/etcd/data/.
 Each line of the output shows a key and its corresponding revision count in the format:
-`key: revision_count`.
+`key: revision_count`. Note: Make sure etcd is not running before executing this command.
 
 The output is sorted in descending order by revision count.
 
