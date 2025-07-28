@@ -8,7 +8,7 @@ require (
 	github.com/golangci/golangci-lint v1.64.8
 	github.com/spf13/cobra v1.9.1
 	go.etcd.io/bbolt v1.4.2
-	go.etcd.io/etcd/api/v3 v3.6.2
+	go.etcd.io/etcd/api/v3 v3.6.4
 	go.etcd.io/etcd/client/pkg/v3 v3.6.2
 	go.etcd.io/etcd/client/v3 v3.6.2
 	go.uber.org/zap v1.27.0
